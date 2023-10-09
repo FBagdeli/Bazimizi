@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Bazimizi</string>
+    <string name="new_game">New game</string>
+    <string name="history">Games history</string>
+    <string name="setting">Setting</string>
+    <string name="exit">Exit</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="do_you_want_to_exit">Do you want to exit?</string>
+
 </resources>
