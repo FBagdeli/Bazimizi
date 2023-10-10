@@ -1,7 +1,9 @@
 package com.farshadchalenges.bazimizi
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -33,7 +36,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlin.system.exitProcess
@@ -144,34 +149,49 @@ fun MainPage() {
         if (exitDialog.value) {
             AlertDialog(
                 icon = {
-                    Icon(
-                        imageVector = Icons.Filled.Warning,
+                    Image(
+                        painter = painterResource(id = R.drawable.yellow_warning_icon),
                         contentDescription = "",
-                        tint = colorResource(
-                            id = R.color.yellow
-                        )
+                        modifier = Modifier.size(70.dp)
                     )
                 },
                 onDismissRequest = {
                     exitDialog.value = false
                 },
-                confirmButton = {
-                    Button(onClick = {
-                        exitProcess(0)
-                    }) {
-                        Text(text = stringResource(id = R.string.yes))
-                    }
-                }, dismissButton = {
-                    Button(onClick = {
-                        exitDialog.value = false
-                    }) {
-                        Text(text = stringResource(id = R.string.no))
-                    }
-                },
                 text = {
-                    Text(text = stringResource(id = R.string.do_you_want_to_exit), fontSize = 20.sp)
+                    Text(text = stringResource(id = R.string.do_you_want_to_exit), fontSize = 20.sp, modifier = Modifier.fillMaxWidth(),textAlign = TextAlign.Center)
                 },
-                titleContentColor = Color.Black,
+
+                confirmButton = {
+                    Row(modifier = Modifier.width(200.dp)) {
+                        Button(
+                            onClick = {
+                                exitProcess(0)
+                            },
+                            border = BorderStroke(1.dp, color = Color.Black)
+                        ) {
+                            Text(text = stringResource(id = R.string.yes))
+                        }
+                    }
+
+
+                }, dismissButton = {
+                    Row() {
+                        Button(
+                            onClick = {
+                                exitDialog.value = false
+
+
+                            }, colors = ButtonDefaults.buttonColors(
+                                containerColor = colorResource(id = R.color.lightGray)
+                            ), border = BorderStroke(1.dp, color = Color.Black)
+                        ) {
+                            Text(text = stringResource(id = R.string.no))
+                        }
+                    }
+
+                }
+
             )
         }
     }
