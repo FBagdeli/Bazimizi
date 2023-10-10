@@ -1,5 +1,6 @@
 package com.farshadchalenges.bazimizi
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -21,17 +23,23 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.farshadchalenges.bazimizi.components.alertsDialogs
 import com.farshadchalenges.bazimizi.components.MainPageButtons
+import com.farshadchalenges.bazimizi.components.language
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainPage() {
+fun MainPage(navController: NavController) {
 
+    val languageDialog = remember {
+        mutableStateOf(false)
+    }
     val exitDialog = remember {
         mutableStateOf(false)
     }
@@ -48,12 +56,24 @@ fun MainPage() {
                             imageVector = Icons.Default.Add,
                             contentDescription = stringResource(id = R.string.app_name)
                         )
-                        Text(text = stringResource(id = R.string.app_name))
+                        Text(text = stringResource(id = R.string.app_name), fontSize = 24.sp)
                     }
                 },
+                actions = {
+                    IconButton(onClick = {
+                        languageDialog.value = true
+                    }) {
+                        if (languageDialog.value) {
+                            val int = language()
+                            Icon(painter = painterResource(id = int), contentDescription = "")
+
+                        }
+                    }
+
+                },
                 colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = colorResource(id = R.color.purple_500),
-                    titleContentColor = Color.White
+                    containerColor = colorResource(id = R.color.brown),
+                    titleContentColor = colorResource(id = R.color.orange)
                 )
             )
 
@@ -65,6 +85,7 @@ fun MainPage() {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
+                .background(colorResource(id = R.color.dark_green))
         ) {
             Spacer(modifier = Modifier.height(150.dp))
             //New game Button
@@ -77,6 +98,7 @@ fun MainPage() {
 
             //Setting button
             MainPageButtons(text = stringResource(id = R.string.setting), onClick = {
+                navController.navigate("Setting")
             })
 
             //Exit Button
@@ -89,5 +111,7 @@ fun MainPage() {
         if (exitDialog.value) {
             exitDialog.value = alertsDialogs()
         }
+
+        //Specify the Language
     }
 }

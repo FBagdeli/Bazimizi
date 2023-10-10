@@ -10,7 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.farshadchalenges.bazimizi.R
@@ -20,15 +21,15 @@ fun MainPageButtons(text: String, onClick: () -> Unit) {
 
     Button(
         onClick = onClick, colors = ButtonDefaults.buttonColors(
-            containerColor = colorResource(id = R.color.purple_500),
-            contentColor = Color.White
+            containerColor = colorResource(id = R.color.orange),
+            contentColor = Color.Black
         ),
         shape = RoundedCornerShape(10.dp),
         border = BorderStroke(
-            2.dp, colorResource(id = R.color.purple_700)
+            2.dp, colorResource(id = R.color.brown)
         ),
         modifier = Modifier.size(200.dp, 60.dp)
     ) {
-        Text(text = text, fontSize = 20.sp)
+        Text(text = text, fontSize = 20.sp, fontWeight = FontWeight.Bold)
     }
 }
