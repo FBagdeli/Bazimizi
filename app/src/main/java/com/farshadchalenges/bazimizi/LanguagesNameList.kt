@@ -10,8 +10,8 @@ fun retrieveLanguage() : SnapshotStateList<LanguageModel> {
 
     val languageList = remember {
         mutableStateListOf(
-            LanguageModel(1, "Persian", R.drawable.persain_flag),
-            LanguageModel(2, "English", R.drawable.england_flag)
+            LanguageModel("Persian",),
+            LanguageModel( "English")
         )
     }
     return languageList

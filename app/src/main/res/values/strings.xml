@@ -6,6 +6,11 @@
     <string name="exit">Exit</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="we">We</string>
+    <string name="them">Theme</string>
     <string name="do_you_want_to_exit">Do you want to exit?</string>
+    <string name="games_history_explanation">"We will upgrade this part very Soon.
+        Please Click on the Screen to get back to Main page!"</string>
+
 
 </resources>

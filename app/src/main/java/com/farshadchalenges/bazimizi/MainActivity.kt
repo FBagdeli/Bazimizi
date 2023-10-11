@@ -44,5 +44,8 @@ fun MyNavigation() {
         composable(route= "Setting"){
             Setting(navController = navController)
         }
+        composable(route = "GameHistory"){
+            GameHistory(navController = navController)
+        }
     }
 }

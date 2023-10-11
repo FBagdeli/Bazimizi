@@ -31,7 +31,7 @@ import kotlin.system.exitProcess
 
 
 @Composable
-fun alertsDialogs():Boolean{
+fun exitDialog(): Boolean {
     val exitDialog = remember {
         mutableStateOf(true)
     }
@@ -53,11 +53,12 @@ fun alertsDialogs():Boolean{
             ) {
                 Text(
                     text = stringResource(id = R.string.do_you_want_to_exit),
-                    fontSize = 20.sp,
+                    fontSize = 22.sp,
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
-                    color = Color.Black
-                )
+                    color = colorResource(id = R.color.black),
+
+                    )
                 Spacer(modifier = Modifier.height(30.dp))
                 Row(
                     horizontalArrangement = Arrangement.Center,
@@ -68,29 +69,33 @@ fun alertsDialogs():Boolean{
                         onClick = {
                             exitDialog.value = false
                         },
-                        modifier = Modifier.size(100.dp, 40.dp),
+                        modifier = Modifier.size(120.dp, 50.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = colorResource(id = R.color.lightGray)
                         ),
                         border = BorderStroke(1.dp, color = Color.Black)
                     ) {
-                        Text(text = stringResource(id = R.string.no))
+                        Text(text = stringResource(id = R.string.no), fontSize = 18.sp,color = Color.Black)
                     }
                     Spacer(modifier = Modifier.width(16.dp))
                     Button(
                         onClick = {
                             exitProcess(0)
-                        }, modifier = Modifier.size(100.dp, 40.dp),
+                        }, modifier = Modifier.size(120.dp, 50.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = colorResource(id = R.color.orange)
+                        ),
+
                         border = BorderStroke(1.dp, color = Color.Black)
                     ) {
-                        Text(text = stringResource(id = R.string.yes))
+                        Text(text = stringResource(id = R.string.yes), fontSize = 18.sp, color = Color.Black)
                     }
                 }
             }
 
 
         },
-        containerColor = colorResource(id = R.color.purple_200),
+        containerColor = colorResource(id = R.color.dark_green),
         confirmButton = {}
     )
     return exitDialog.value
