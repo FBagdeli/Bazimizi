@@ -5,7 +5,9 @@ package com.farshadchalenges.bazimizi.database
 
 sealed interface ShelemEvent{
 
-    object PlayWithJokOrNotJok:ShelemEvent
+    object SaveNewGame : ShelemEvent
+    object PlayWithJok:ShelemEvent
+    object PlayWithoutJok:ShelemEvent
     data class SetTotalPointWithJok(val totalPointWithJok: Int):ShelemEvent
     data class SetTotalPointWithoutJok(val totalPointWithoutJok: Int):ShelemEvent
     data class SetFullPointWithJokerForEachHand(val fullPointWithJokerForEachHand: Int):ShelemEvent
@@ -19,8 +21,8 @@ sealed interface ShelemEvent{
     data class SetHakemTeam(val hakemTeam: Int):ShelemEvent
     object HakemKeptPromise:ShelemEvent
     object HakemDidntKeptPromise:ShelemEvent
-    data class SumFirstTeamPoints(val firstTeamPoints: Int):ShelemEvent
-    data class SumSecondTeamPoints(val secondTeamPoints: Int):ShelemEvent
+    data class SumFirstTeamPoints(val sumFirstTeamPoints: Int):ShelemEvent
+    data class SumSecondTeamPoints(val sumSecondTeamPoints: Int):ShelemEvent
     data class SetWinnerOfGame(val winnerOfGame: String):ShelemEvent
 
 }

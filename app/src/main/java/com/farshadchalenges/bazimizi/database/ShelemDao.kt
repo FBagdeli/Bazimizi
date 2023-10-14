@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 interface ShelemDao {
 
     @Upsert
-    suspend fun upsertShelem(shelem: Shelem)
+    suspend fun upsertNewGame(shelem: Shelem)
 
     @Delete
     suspend fun deleteShelem(shelem: Shelem)

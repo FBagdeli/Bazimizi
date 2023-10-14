@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ShelemViewModel(
@@ -31,30 +32,197 @@ class ShelemViewModel(
 
     fun onEvent(event: ShelemEvent) {
         when (event) {
-            ShelemEvent.HakemKeptPromise -> {
+            ShelemEvent.SaveNewGame -> {
+                val playWithJok = state.value.playWithJok
+                val totalPointWithJok = state.value.totalPointWithJok
+                val totalPointWithoutJok = state.value.totalPointWithoutJok
+                val fullPointWithJokerForEachHand=state.value.fullPointWithJokerForEachHand
+                val fullPointWithoutJokerForEachHand=state.value.fullPointWithoutJokerForEachHand
+                val maxPointWithJoker = state.value.maxPointWithJoker
+                val maxPointWithoutJoker = state.value.maxPointWithoutJoker
+                val winForPointsDifference = state.value.winForPointsDifferent
+                val firstTeamName = state.value.firstTeamName
+                val secondTeamName = state.value.secondTeamName
+                val hakemPointPromised = state.value.hakemPointPromised
+                val hakemTeam = state.value.hakemTeam
+                val hakemKeptPromise = state.value.hakemKeptPromise
+                val sumFirstTEamTotalPoints = state.value.sumFirstTeamTotalPoints
+                val sumSecondTeamTotalPoints = state.value.sumSecondTeamTotalPoints
+                val winnerOfGame = state.value.winnerOfGame
+
+                val shelem = Shelem(
+                    jokOrNotJok = playWithJok,
+                    totalPointWithJoker = totalPointWithJok,
+                    totalPointWithoutJoker = totalPointWithoutJok,
+                    fullPointWithJokerForEachHand = fullPointWithJokerForEachHand,
+                    fullPointWithoutJokerForEachHand = fullPointWithoutJokerForEachHand,
+                    maxPointWithJoker = maxPointWithJoker,
+                    maxPointWithoutJoker = maxPointWithoutJoker,
+                    winWithPointsDifference = winForPointsDifference,
+                    firstTeamName = firstTeamName,
+                    secondTeamName = secondTeamName,
+                    hakemPointPromised = hakemPointPromised,
+                    hakemTeam = hakemTeam,
+                    hakemKeptPromise = hakemKeptPromise,
+                    sumFirstTeamTotalPoints = sumFirstTEamTotalPoints,
+                    sumSecondTeamTotalPoints = sumSecondTeamTotalPoints,
+                    winnerOfGame = winnerOfGame
+                )
+                viewModelScope.launch {
+                    dao.upsertNewGame(shelem)
+                }
                 _state.update {
                     it.copy(
-                    hakemPromise = true
+
                     )
                 }
             }
 
-            ShelemEvent.PlayWithJokOrNotJok -> TODO()
-            is ShelemEvent.SetFirstTeam -> TODO()
-            is ShelemEvent.SetFullPointWithJokerForEachHand -> TODO()
-            is ShelemEvent.SetFullPointWithoutJokerForEachHand -> TODO()
-            is ShelemEvent.SetHakemPointPromised -> TODO()
-            is ShelemEvent.SetHakemTeam -> TODO()
-            is ShelemEvent.SetMaxPointWithJoker -> TODO()
-            is ShelemEvent.SetMaxPointWithoutJoker -> TODO()
-            is ShelemEvent.SetSecondTeam -> TODO()
-            is ShelemEvent.SetTotalPointWithJok -> TODO()
-            is ShelemEvent.SetTotalPointWithoutJok -> TODO()
-            is ShelemEvent.SetWinnerOfGame -> TODO()
-            is ShelemEvent.SumFirstTeamPoints -> TODO()
-            is ShelemEvent.SumSecondTeamPoints -> TODO()
-            ShelemEvent.WinForPointDifference -> TODO()
-            ShelemEvent.HakemDidntKeptPromise -> TODO()
+            ShelemEvent.HakemKeptPromise -> {
+                _state.update {
+                    it.copy(
+                        hakemKeptPromise = true
+                    )
+                }
+            }
+
+            ShelemEvent.HakemDidntKeptPromise -> {
+                _state.update {
+                    it.copy(
+                        hakemKeptPromise = false
+                    )
+                }
+            }
+
+            ShelemEvent.PlayWithJok -> {
+                _state.update {
+                    it.copy(
+                        playWithJok = true
+                    )
+                }
+            }
+
+            ShelemEvent.PlayWithoutJok -> {
+                _state.update {
+                    it.copy(
+                        playWithJok = false
+                    )
+                }
+            }
+
+            is ShelemEvent.SetFirstTeam -> {
+                _state.update {
+                    it.copy(
+                        firstTeamName = event.firstTeam
+                    )
+                }
+            }
+
+            is ShelemEvent.SetFullPointWithJokerForEachHand -> {
+                _state.update {
+                    it.copy(
+                        fullPointWithJokerForEachHand = event.fullPointWithJokerForEachHand
+                    )
+                }
+            }
+
+            is ShelemEvent.SetFullPointWithoutJokerForEachHand -> {
+                _state.update {
+                    it.copy(
+                        fullPointWithoutJokerForEachHand = event.fullPointWithoutJokerForEachHand
+                    )
+                }
+            }
+
+            is ShelemEvent.SetHakemPointPromised -> {
+                _state.update {
+                    it.copy(
+                        hakemPointPromised = event.hakemPointPromised
+                    )
+                }
+            }
+
+            is ShelemEvent.SetHakemTeam -> {
+                _state.update {
+                    it.copy(
+                        hakemTeam = event.hakemTeam //1 or 2
+                    )
+                }
+            }
+
+            is ShelemEvent.SetMaxPointWithJoker -> {
+                _state.update {
+                    it.copy(
+                        maxPointWithJoker = event.maxPointWithJoker
+                    )
+                }
+            }
+
+            is ShelemEvent.SetMaxPointWithoutJoker -> {
+                _state.update {
+                    it.copy(
+                        maxPointWithoutJoker = event.maxPointWithoutJoker
+                    )
+                }
+            }
+
+            is ShelemEvent.SetSecondTeam -> {
+                _state.update {
+                    it.copy(
+                        secondTeamName = event.secondTeam
+                    )
+                }
+            }
+
+            is ShelemEvent.SetTotalPointWithJok -> {
+                _state.update {
+                    it.copy(
+                        totalPointWithJok = event.totalPointWithJok
+                    )
+                }
+            }
+
+            is ShelemEvent.SetTotalPointWithoutJok -> {
+                _state.update {
+                    it.copy(
+                        totalPointWithoutJok = event.totalPointWithoutJok
+                    )
+                }
+            }
+
+            is ShelemEvent.SetWinnerOfGame -> {
+                _state.update {
+                    it.copy(
+                        winnerOfGame = event.winnerOfGame
+                    )
+                }
+            }
+
+            is ShelemEvent.SumFirstTeamPoints -> {
+                _state.update {
+                    it.copy(
+                        sumFirstTeamTotalPoints = event.sumFirstTeamPoints
+                    )
+                }
+            }
+
+            is ShelemEvent.SumSecondTeamPoints -> {
+                _state.update {
+                    it.copy(
+                        sumSecondTeamTotalPoints = event.sumSecondTeamPoints
+                    )
+                }
+            }
+
+            ShelemEvent.WinForPointDifference -> {
+                _state.update {
+                    it.copy(
+                        winForPointsDifferent = false
+                    )
+                }
+            }
+
+
         }
     }
 

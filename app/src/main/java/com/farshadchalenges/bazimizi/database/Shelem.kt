@@ -18,10 +18,12 @@ data class Shelem(
     //Trigger in case that if one of the teams take all points
     //without saying "SHELEM", what will happen?For WithJoker
     //equals to point they took for that hand, or 240 or 2x
+    //WITHOUT SAYING SHELEM
     val fullPointWithJokerForEachHand: Int,
     //Trigger in case that if one of the teams take all points
     //without saying "SHELEM", what will happen?For WithJoker
     //equals to point they took for that hand, or 240 or 2x
+    //WITHOUT SAYING SHELEM
     val fullPointWithoutJokerForEachHand: Int,
     //maximum point to win 600,800,1600
     val maxPointWithJoker: Int,
@@ -29,21 +31,21 @@ data class Shelem(
     val maxPointWithoutJoker: Int,
     //should game end will different between points
     // or not? team a - team b = 1165
-    val gamePointsDifferent: Boolean,
+    val winWithPointsDifference: Boolean,
 
-    val firstTeam: String,
-    val secondTeam: String,
+    val firstTeamName: String,
+    val secondTeamName: String,
 
     //specify how much of points will hakem take
     val hakemPointPromised:Int,
     //specify that which Team gave the promise
     val hakemTeam: Int,
     //did the hakem keep their promise ?
-    val hakemPromise: Boolean,
+    val hakemKeptPromise: Boolean,
     // full points of team1
-    val firstTeamTotalPoints: Int,
+    val sumFirstTeamTotalPoints: Int,
     // full points of team2
-    val secondTeamTotalPoints: Int,
+    val sumSecondTeamTotalPoints: Int,
     // winner
     val winnerOfGame : String
 )
